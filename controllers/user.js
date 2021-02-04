@@ -1,7 +1,7 @@
 const User = require('../models/user');
+const { YOUR_TOKEN } = process.env;
 const TelegramBot = require('node-telegram-bot-api');
-const token = '1668615288:AAGoHVny4TGpvSwCyrjDVKjV0IXrGP3W-Zs';
-const bot = new TelegramBot(token, { polling: false });
+const bot = new TelegramBot(YOUR_TOKEN, { polling: false });
 const chatId = '-530346437'
 const opt = {
   parse_mode: 'HTML'
@@ -17,7 +17,7 @@ module.exports.userData = (req, res, next) => {
   .then((data) => {
     let msg = `Новый клиент!\n  <b>Имя:</b> ${data.name}\n  <b>E-mail:</b> ${data.email}\n  <b>Тел.:</b> ${data.telephone}`
     console.log(msg)
-    return bot.sendMessage(chatId, msg, opt)
+    return bot.sendMessage(chatId, msg, opt).then(() =>{res.send('Данные успешно отправлены')}) .catch((err) => { res.send(err)});
   })
   .catch((err) => {
     next(err);
