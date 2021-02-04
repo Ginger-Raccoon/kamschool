@@ -1,26 +1,13 @@
-## NewsExplorer
+## KamSchool
 ### О проекте
-+ Backend проекта NewsExplorer. Это сервис, в котором      
-можно найти новости по запросу и сохранить в личном кабинете      
-`Дипломный проект сделанный для Яндекс.Практикум`
++ Backend проекта Kamcchool
 
 ### Функциональность
-    Запросы с сервера - https://api.raccoondiploma.ml/        
+    Запросы с сервера    
     отправлять через Postman
 
-    POST /signup — регистрация пользователя с переданными в теле запроса:    
-     name, email, password
-    POST /signin — авторизация пользователя по email и password 
-    GET /users/me — возвращает информацию о пользователе
-    GET /articles - возвращает все сохранённые пользователем статьи
-    POST /articles — создаёт статью с переданными в теле: 
-    keyword, title, text, date, source, link и image
-    DELETE /articles/articleId — удаляет сохранённую статью  по _id
-
-### Доступ к серверу
-+ IP адрес: http://84.201.160.204
-+ Бэкенд проекта: https://api.raccoondiploma.ml/          
-+ https://raccoondiploma.ml/
+    POST / — Запись данных клиента из БД    
+     name, email, telephone
 
 ### Развертывание проекта
 1. Установить `Node.js`
