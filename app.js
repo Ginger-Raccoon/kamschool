@@ -13,8 +13,9 @@ const router = require('./routes/index');
 const corsOptions = {
   origin: [
     'http://localhost:8080',
+    'https://kam-school.ru/'
   ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  methods: ['POST'],
   preflightContinue: false,
   optionsSuccessStatus: 204,
   allowedHeaders: [
