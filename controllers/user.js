@@ -16,7 +16,6 @@ module.exports.userData = (req, res, next) => {
   // })
   .then((data) => {
     let msg = `Новый клиент!\n  <b>Имя:</b> ${data.name}\n  <b>E-mail:</b> ${data.email}\n  <b>Тел.:</b> ${data.telephone}`
-    console.log(msg)
     return bot.sendMessage(chatId, msg, opt).then(() =>{res.send('Данные успешно отправлены')}) .catch((err) => { res.send(err)});
   })
   .catch((err) => {
