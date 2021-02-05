@@ -17,7 +17,7 @@ const corsOptions = {
     'http://kam-school.ru/'
   ],
   methods: ['POST'],
-  preflightContinue: false,
+  preflightContinue: true,
   optionsSuccessStatus: 204,
   allowedHeaders: [
     'Content-Type',
