@@ -13,7 +13,8 @@ const router = require('./routes/index');
 const corsOptions = {
   origin: [
     'http://localhost:8080',
-    'https://kam-school.ru/'
+    'https://kam-school.ru/',
+    'http://kam-school.ru/'
   ],
   methods: ['POST'],
   preflightContinue: false,
