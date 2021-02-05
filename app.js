@@ -14,7 +14,8 @@ const corsOptions = {
   origin: [
     'http://localhost:8080',
     'https://kam-school.ru/',
-    'http://kam-school.ru/'
+    'http://kam-school.ru/',
+    'http://84.201.152.81:3000'
   ],
   methods: ['POST'],
   preflightContinue: true,
