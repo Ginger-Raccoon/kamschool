@@ -13,7 +13,9 @@ const router = require('./routes/index');
 const corsOptions = {
   origin: [
     'http://localhost:8080',
-    'http://84.201.152.81:3000'
+    'http://84.201.152.81:3000',
+    'http://kam-school.ru',
+    'https://kam-school.ru',
   ],
 
   optionsSuccessStatus: 200,
