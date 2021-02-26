@@ -10,6 +10,7 @@ const limiter = require('./middlewares/rateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes/index');
 
+
 const corsOptions = {
   origin: [
     'http://localhost:8080',
