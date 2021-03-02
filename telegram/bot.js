@@ -35,6 +35,9 @@ function createBot() {
   bot.command('bro', (ctx) => {
     ctx.replyWithSticker('CAACAgIAAxkBAAEB8NJgPfjku-G-zj6wQ5xgBxpuBVdchwAC8wQAAlSlcghlUM5huKL-zh4E')
   })
+  bot.command('twitter', (ctx) => {
+    ctx.replyWithSticker('CAACAgIAAxkBAAEB8NRgPf-MDgtSyrLyBspaksVZpcdlQQACIwEAAlSlcgiuWJW3tYcY3R4E')
+  })
   bot.hears('Узнать о создателе', ctx => {
     ctx.replyWithPhoto(
       'http://kam-school.ru/images/i49.jpg',
