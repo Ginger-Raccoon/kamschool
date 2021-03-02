@@ -2,8 +2,10 @@ const EditDate = require('../utils/utils');
 const User = require('../models/user');
 //Telegram
 const { YOUR_TOKEN } = process.env;
-const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(YOUR_TOKEN, { polling: false });
+const { Telegraf } = require('telegraf')
+const bot = new Telegraf(YOUR_TOKEN);
+// const createBot = require('../telegram/bot');
+// createBot();
 const chatId = '-530346437'
 const opt = {
   parse_mode: 'HTML'
@@ -22,7 +24,7 @@ module.exports.userData = (req, res, next) => {
   User.create({ name, email, telephone, date, source })
   .then((data) => {
     let msg = `Новый клиент!\n  <b>Имя:</b> ${data.name}\n  <b>E-mail:</b> ${data.email}\n  <b>Тел.:</b> ${data.telephone}\n <b>Дата:</b> ${editDate}\n <b>Источник:</b> ${data.source}`
-    return bot.sendMessage(chatId, msg, opt)
+    return bot.telegram.sendMessage(chatId, msg, opt)
       .then(() =>{
         Googleapi.updateSheet(data.name, data.email, data.telephone, editDate, data.source)
           .then(() => {res.send({ message: 'Данные успешно сохранены' })})
@@ -36,6 +38,41 @@ module.exports.userData = (req, res, next) => {
       res.status(400).send({ message: 'Введены неверные данные'});
     }
     next(err)
+  })
+}
+
+module.exports.botData = (req, id) => {
+  let date = new Date();
+  let editDate = EditDate.editDataFormat(date.toJSON().slice(0, 10));
+  const { name, email, telephone } = req
+  req.date = editDate;
+  const source = 'Бот';
+  req.source = source;
+  User.create({ name, email, telephone, date, source })
+  .then((data) => {
+    let msg = `Новый клиент!\n  <b>Имя:</b> ${data.name}\n  <b>E-mail:</b> ${data.email}\n  <b>Тел.:</b> ${data.telephone}\n <b>Дата:</b> ${editDate}\n <b>Источник:</b> ${data.source}`
+    return bot.telegram.sendMessage(chatId, msg, opt)
+      .then(() =>{
+        Googleapi.updateSheet(data.name, data.email, data.telephone, editDate, data.source)
+          .then(() => {
+            let msg = 'Данные успешно сохранены'
+            return bot.telegram.sendMessage(id, msg, opt)
+          })
+          .catch((err) => {
+            let msg = 'Произошла какая-то ошибка, попробуйте позже'
+            return bot.telegram.sendMessage(id, msg, opt)
+          })
+      })
+      .catch((err) => {
+        let msg = 'Произошла какая-то ошибка, попробуйте позже'
+        return bot.telegram.sendMessage(id, msg, opt)
+      });
+  })
+  .catch((err) => {
+    if (err._message === 'user validation failed') {
+      let msg = 'Введены не корректные данные, устраните ошибку и попробуйте снова';
+      return bot.telegram.sendMessage(id, msg, opt)
+    }
   })
 }
 

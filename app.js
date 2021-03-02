@@ -10,6 +10,8 @@ const limiter = require('./middlewares/rateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes/index');
 
+const createBot = require('./telegram/bot');
+createBot
 
 const corsOptions = {
   origin: [
