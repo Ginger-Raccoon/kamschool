@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
   source: {
     type: String,
     required: true
-  }
+  },
   status: {
     type: String,
     required: true
