@@ -17,16 +17,16 @@ const Googleapi = require('../googleSheets/googleapi');
 module.exports.userData = (req, res, next) => {
   let date = new Date();
   let editDate = EditDate.editDataFormat(date.toJSON().slice(0, 10));
-  const { name, email, telephone } = req.body;
+  const { name, email, telephone, status } = req.body;
   req.body.date = editDate;
   const source = 'Сайт'
   req.body.source = source
-  User.create({ name, email, telephone, date, source })
+  User.create({ name, email, telephone, date, source, status })
   .then((data) => {
-    let msg = `Новый клиент!\n  <b>Имя:</b> ${data.name}\n  <b>E-mail:</b> ${data.email}\n  <b>Тел.:</b> ${data.telephone}\n <b>Дата:</b> ${editDate}\n <b>Источник:</b> ${data.source}`
+    let msg = `Новый клиент!\n  <b>Имя:</b> ${data.name}\n  <b>E-mail:</b> ${data.email}\n  <b>Тел.:</b> ${data.telephone}\n <b>Дата:</b> ${editDate}\n <b>Источник:</b> ${data.source}\n <b>Статус:</b> ${data.status}`
     return bot.telegram.sendMessage(chatId, msg, opt)
       .then(() =>{
-        Googleapi.updateSheet(data.name, data.email, data.telephone, editDate, data.source)
+        Googleapi.updateSheet(data.name, data.email, data.telephone, editDate, data.source, data.status)
           .then(() => {res.send({ message: 'Данные успешно сохранены' })})
           .catch((err) => {res.status(400).send(err)})
       })
