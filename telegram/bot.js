@@ -48,7 +48,8 @@ function createBot() {
             [{ text: 'Хочу поступить'},
             { text: 'Узнать еще больше!'}]
           ],
-          resize_keyboard: true
+          resize_keyboard: true,
+          one_time_keyboard: true
         },
       },
     );
@@ -57,8 +58,9 @@ function createBot() {
     ctx.replyWithHTML(
       'Отлично!\n'+
       'Сообщи мне твои <b>Имя</b>, <b>Email</b> и <b>Телефон</b>\n'+
-      '<i><b>Пример:</b></i>\n Василий testmail@test.ru +79993337722',
-      keyboards.removeKeyBoard()
+      '<i><b>Пример:</b></i>\n Василий testmail@test.ru +79993337722\n'+
+      'Или:',
+      keyboards.toBeginingInline(),
     )
   })
   bot.hears('Узнать еще больше!', ctx => {
@@ -74,7 +76,7 @@ function createBot() {
       'Привет! Я <b>Kam-school bot</b>\n\n'+
       'Я могу немного рассказать о своем создателе или записать твои данные\n'+
       'Что выберешь?🙃',
-      keyboards.getMainMenu()
+      keyboards.getMainMenu(),
     );
   })
   bot.on('text', ctx => {
@@ -92,6 +94,14 @@ function createBot() {
       '<i><b>Пример:</b></i>\n Василий testmail@test.ru +79993337722'
     )
   })
+  bot.action(['start'], async(ctx) => {
+    await ctx.replyWithHTML(
+      'Привет! Я <b>Kam-school bot</b>\n\n'+
+      'Я могу немного рассказать о своем создателе или записать твои данные\n'+
+      'Что выберешь?🙃',
+      keyboards.getMainMenu()
+    );
+  })
   bot.action(['yes'], async(ctx) => {
     if (typeof ctx.session.dataString != 'undefined') {
       let chatId = ctx.chat.id
@@ -99,7 +109,7 @@ function createBot() {
     } else {
       await ctx.replyWithHTML(
         'Что то пошло не так😱\n'+
-        'Пожалуйста, повтори ввод данных или вернись к началу',
+        'Пожалуйста, повтори ввод данных или:',
         keyboards.toBegining()
       )
     }

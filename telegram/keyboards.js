@@ -3,7 +3,7 @@ const Markup = require('telegraf/markup');
 let getMainMenu = function() {
   return Markup.keyboard([
     ['Обо мне', 'Хочу поступить']
-  ]).resize().extra()
+  ]).oneTime().resize().extra()
 }
 
 let toBegining = function() {
@@ -12,11 +12,17 @@ let toBegining = function() {
   ]).resize().extra()
 }
 
+let toBeginingInline = function() {
+  return Markup.inlineKeyboard([
+    Markup.callbackButton('В начало', 'start'),
+  ]).extra()
+}
+
 let yesNoKeyboard = function () {
   return Markup.inlineKeyboard([
       Markup.callbackButton('Да', 'yes'),
       Markup.callbackButton('Изменить данные', 'repeat'),
-      Markup.callbackButton('В начало', '/start')
+      Markup.callbackButton('В начало', 'start')
   ], {columns: 2}).extra()
 }
 
@@ -27,6 +33,7 @@ let removeKeyBoard = function() {
 module.exports = {
   getMainMenu: getMainMenu,
   toBegining: toBegining,
+  toBeginingInline: toBeginingInline,
   yesNoKeyboard: yesNoKeyboard,
   removeKeyBoard: removeKeyBoard
 };
