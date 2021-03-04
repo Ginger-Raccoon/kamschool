@@ -2,14 +2,14 @@ const Markup = require('telegraf/markup');
 
 let getMainMenu = function() {
   return Markup.keyboard([
-    ['Узнать о создателе', 'Оставить данные']
+    ['Обо мне', 'Хочу поступить']
   ]).resize().extra()
 }
 
 let toBegining = function() {
-  return Markup.inlineKeyboard([
-    Markup.callbackButton('В начало', '/start')
-  ]).extra()
+  return Markup.keyboard([
+    ['В начало', 'Хочу поступить']
+  ]).resize().extra()
 }
 
 let yesNoKeyboard = function () {
