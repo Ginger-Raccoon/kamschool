@@ -6,7 +6,7 @@ const { Telegraf } = require('telegraf')
 const bot = new Telegraf(YOUR_TOKEN);
 // const createBot = require('../telegram/bot');
 // createBot();
-const chatId = '-530346437'
+const chatId = '-1001442483526'
 const opt = {
   parse_mode: 'HTML'
 }
